@@ -1,0 +1,44 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools>=64.0.0",
+]
+
+[project]
+authors = [
+    { name = "Julien Castiaux", email = "julien.castiaux@gmail.com" },
+]
+description = "Python binding to the HACL* library"
+maintainers = [
+    { name = "Julien Castiaux", email = "julien.castiaux@gmail.com" },
+]
+name = "pyhacl"
+readme = "README.md"
+requires-python = ">=3.10"
+version = "0.0.0"
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.urls]
+Documentation = "https://github.com/Julien00859/pyhacl/wiki"
+Issue = "https://github.com/Julien00859/pyhacl/issues"
+Repository = "https://github.com/Julien00859/pyhacl"
+
+[project.license]
+file = "LICENSE"
+
+[project.optional-dependencies]
+dev = [
+    "build>=0.2.0",
+]
+
+[project.scripts]
+pyhacl = "pyhacl.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pyhacl = ["hacl-packages"]
