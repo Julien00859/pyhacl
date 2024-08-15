@@ -1,6 +1,7 @@
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = [
+    "cython",
     "setuptools>=64.0.0",
 ]
 
@@ -32,6 +33,7 @@ file = "LICENSE"
 [project.optional-dependencies]
 dev = [
     "build>=0.2.0",
+    "Cython",
 ]
 
 [project.scripts]
