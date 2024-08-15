@@ -1,3 +1,5 @@
+# distutils: sources = hacl-packages/src/Hacl_Hash_SHA2.c
+
 import cython
 from cython.cimports.libc.stdint import uint8_t
 from cython.cimports.pyhacl.include.hacl_hash_sha2 import Hacl_Hash_SHA2_hash_256

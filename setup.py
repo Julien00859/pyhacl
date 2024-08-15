@@ -6,7 +6,6 @@ from Cython.Build import cythonize
 
 root = pathlib.Path(__file__).parent
 hacl_packages = root.joinpath('hacl-packages')
-hacl_build_dir = os.fspath(hacl_packages/'build'/'Release')
 include_dirs = [
     os.fspath(include_dir)
     for include_dir, _
@@ -28,9 +27,6 @@ setup(
             name="pyhacl.hashlib",
             sources=["src/pyhacl/_hashlib.py"],
             include_dirs=include_dirs,
-            library_dirs=[hacl_build_dir],
-            libraries=["hacl"],
-            runtime_library_dirs=[hacl_build_dir],
         ),
     ])
 )
