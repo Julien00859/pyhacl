@@ -136,3 +136,5 @@ dmypy.json
 .venv/
 dist/
 *.egg-info
+
+src/**/*.html
