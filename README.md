@@ -4,6 +4,8 @@ Python binding to the HACL* library
 
 ## Build
 
+Install the necessary tools for building hacl*: cmake, ninja and clang.
+
 Move inside the hacl-packages submodule and run `./mach build --release`, it
 compiles the files necessary for pyhacl.
 
