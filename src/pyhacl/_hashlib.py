@@ -42,19 +42,20 @@ class SHA256:
         )
 
     def digest(self) -> bytes:
-        output: cython.char[33]
-        output[32] = 0
-        sha2.Hacl_Hash_SHA2_digest_256(
-            self._state,
-            cython.cast(cython.pointer(uint8_t), output),
-        )
-        return output
+        output: uint8_t[32]
+        sha2.Hacl_Hash_SHA2_digest_256(self._state, output)
+        return output[:32]
+
+    def hexdigest(self) -> str:
+        return self.digest().hex()
 
     def copy(self):
-        sha_copy = type(self)()
+        copy: SHA256 = type(self)()
+        copy._state[0].block_state[0] = self._state[0].block_state[0]
         memcpy(
-            cython.cast(cython.p_void, sha_copy._state),
-            cython.cast(cython.p_void, self._state),
-            cython.sizeof(sha2.Hacl_Hash_SHA2_state_t_256),
+            cython.cast(cython.p_void, copy._state[0].buf),
+            cython.cast(cython.p_void, self._state[0].buf),
+            64,
         )
-        return sha_copy
+        copy._state[0].total_len = self._state[0].total_len
+        return copy
