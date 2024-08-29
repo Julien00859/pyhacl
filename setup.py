@@ -28,5 +28,5 @@ setup(
             sources=["src/pyhacl/_hashlib.py"],
             include_dirs=include_dirs,
         ),
-    ], annotate=True)
+    ], annotate=True, language_level='3')
 )
