@@ -24,8 +24,13 @@ include_dirs = [
 setup(
     ext_modules=cythonize([
         Extension(
+            name="pyhacl.hashlib.sha1",
+            sources=["src/pyhacl/hashlib/sha1.py"],
+            include_dirs=include_dirs,
+        ),
+        Extension(
             name="pyhacl.hashlib.sha2",
-            sources=["src/pyhacl/hashlib/_sha2.py"],
+            sources=["src/pyhacl/hashlib/sha2.py"],
             include_dirs=include_dirs,
         ),
     ], annotate=True, language_level='3')

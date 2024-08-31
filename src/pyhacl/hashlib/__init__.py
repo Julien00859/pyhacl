@@ -1,8 +1,10 @@
+from .sha1 import sha1
 from .sha2 import sha224, sha256, sha384, sha512
 
 _hashes = {
     Hash.name: Hash
     for Hash in (
+        sha1,
         sha224, sha256, sha384, sha512,
     )
 }

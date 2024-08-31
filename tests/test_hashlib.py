@@ -1,14 +1,14 @@
 import pathlib
 import unittest
 from parameterized import parameterized
-from pyhacl.hashlib import sha224, sha256, sha384, sha512
+from pyhacl.hashlib import sha1, sha224, sha256, sha384, sha512
 
 shabytetestvectors_dir = pathlib.Path(__file__).parent.joinpath('shabytetestvectors')
 
 class TestHashlib(unittest.TestCase):
     @parameterized.expand([
         (f'SHA{Hash.name[3:]}{suite}', Hash)
-        for Hash in [sha224, sha256, sha384, sha512]
+        for Hash in [sha1, sha224, sha256, sha384, sha512]
         for suite in ('Short', 'Long')
     ])
     def test_hashlib(self, name, Hash):

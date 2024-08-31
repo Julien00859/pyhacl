@@ -4,7 +4,7 @@ import cython
 from cython.cimports.libc.stdint import uint8_t
 from cython.cimports.libc.string import memcpy
 
-import cython.cimports.pyhacl.include.hacl_hash_sha2 as sha2
+from cython.cimports.pyhacl.hashlib import sha2
 
 
 @cython.cclass

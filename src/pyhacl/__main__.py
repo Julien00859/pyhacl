@@ -1,12 +1,12 @@
 import sys
 
-from .hashlib import sha256
+from .hashlib import sha1
 
 def main():
     if len(sys.argv) != 2:
         return f"usage: {__package__} <data>"
 
-    sha = sha256(sys.argv[1].encode())
+    sha = sha1(sys.argv[1].encode())
     sha2 = sha.copy()
     print(sha.digest().hex())
     print(sha2.digest().hex())
