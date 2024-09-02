@@ -20,18 +20,22 @@ include_dirs = [
     if 'rust' not in include_dir.parents
     if 'tests' not in include_dir.parents
 ]
+cython_extensions = [
+    Extension(
+        name=os.fspath(
+            path.relative_to(root/'src').with_suffix('')
+        ).replace('/', '.'),
+        sources=[os.fspath(path)],
+        include_dirs=include_dirs
+    )
+    for path in root.glob('src/pyhacl/**/*.py')
+    if path.with_suffix('.pxd').is_file()
+]
 
 setup(
-    ext_modules=cythonize([
-        Extension(
-            name="pyhacl.hashlib.sha1",
-            sources=["src/pyhacl/hashlib/sha1.py"],
-            include_dirs=include_dirs,
-        ),
-        Extension(
-            name="pyhacl.hashlib.sha2",
-            sources=["src/pyhacl/hashlib/sha2.py"],
-            include_dirs=include_dirs,
-        ),
-    ], annotate=True, language_level='3')
+    ext_modules=cythonize(
+        cython_extensions,
+        annotate=True,
+        language_level='3'
+    )
 )
