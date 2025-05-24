@@ -13,7 +13,7 @@ algorithms_guaranteed = algorithms_available = list(_hashes)
 __all__ = algorithms_guaranteed + [
     'new',
     'algorithms_guaranteed',
-    'algorithms_available'
+    'algorithms_available',
 ]
 
 def new(name, data=b'', *, usedforsecurity=None):

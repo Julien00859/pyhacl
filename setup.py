@@ -25,7 +25,7 @@ cython_extensions = [
         name=os.fspath(
             path.relative_to(root/'src').with_suffix('')
         ).replace('/', '.'),
-        sources=[os.fspath(path)],
+        sources=[os.fspath(path.relative_to(root))],
         include_dirs=include_dirs
     )
     for path in root.glob('src/pyhacl/**/*.py')
