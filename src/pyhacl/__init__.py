@@ -1,1 +1,2 @@
-
+class HACLError(Exception):
+    pass

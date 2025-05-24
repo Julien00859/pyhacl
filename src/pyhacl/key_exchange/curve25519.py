@@ -3,6 +3,8 @@
 from cython.cimports.libc.stdint import uint8_t
 from cython.cimports.pyhacl.key_exchange import curve25519_51
 
+from . import CryptoKeyError
+
 
 def scalarmult(secret_key: bytes, public_key: bytes) -> bytes:
     if len(secret_key) != 32:
@@ -38,7 +40,7 @@ def ecdh(secret_key: bytes, public_key: bytes) -> bytes:
     skey: uint8_t[32] = secret_key
     pkey: uint8_t[32] = public_key
     shared_key: uint8_t[32]
-    if not curve25519_51.Hacl_Curve25519_51_ecdh(shared_key, skey, pkey):
-        e = 'invalid key'
-        raise ValueError(e)
+    ok: bool = curve25519_51.Hacl_Curve25519_51_ecdh(shared_key, skey, pkey)
+    if not ok:
+        raise CryptoKeyError
     return shared_key[:32]

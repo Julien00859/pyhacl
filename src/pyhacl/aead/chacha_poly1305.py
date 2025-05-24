@@ -6,13 +6,15 @@ from cython.cimports.libc.stdlib import malloc, free
 
 from cython.cimports.pyhacl.aead import chacha_poly1305
 
+from . import DecryptionError
+
 
 def encrypt(input: bytes, data: bytes, key: bytes, nonce: bytes) -> tuple[bytes, bytes]:
     if len(key) != 32:
-        e = 'key must be 32 bytes long'
+        e = "key must be 32 bytes long"
         raise ValueError(e)
     if len(nonce) != 12:
-        e = 'nonce must be 12 bytes long'
+        e = "nonce must be 12 bytes long"
         raise ValueError(e)
     output: cython.pointer(uint8_t) = cython.cast(
         cython.pointer(uint8_t), malloc(len(input))
@@ -34,18 +36,18 @@ def encrypt(input: bytes, data: bytes, key: bytes, nonce: bytes) -> tuple[bytes,
 
 def decrypt(input: bytes, data: bytes, key: bytes, nonce: bytes, tag: bytes) -> bytes:
     if len(key) != 32:
-        e = 'key must be 32 bytes long'
+        e = "key must be 32 bytes long"
         raise ValueError(e)
     if len(nonce) != 12:
-        e = 'nonce must be 12 bytes long'
+        e = "nonce must be 12 bytes long"
         raise ValueError(e)
     if len(tag) != 16:
-        e = 'tag must be 16 bytes long'
+        e = "tag must be 16 bytes long"
         raise ValueError(e)
     output: cython.pointer(uint8_t) = cython.cast(
         cython.pointer(uint8_t), malloc(len(input))
     )
-    if chacha_poly1305.Hacl_AEAD_Chacha20Poly1305_decrypt(
+    ko: bool = chacha_poly1305.Hacl_AEAD_Chacha20Poly1305_decrypt(
         output,
         cython.cast(cython.pointer(uint8_t), input),
         len(input),
@@ -54,9 +56,9 @@ def decrypt(input: bytes, data: bytes, key: bytes, nonce: bytes, tag: bytes) -> 
         cython.cast(cython.pointer(uint8_t), key),
         cython.cast(cython.pointer(uint8_t), nonce),
         cython.cast(cython.pointer(uint8_t), tag),
-    ):
-        e = 'decryption failure'
-        raise ValueError(e)
+    )
+    if ko:
+        raise DecryptionError
     plain: bytes = output[:len(input)]
     free(output)
     return plain

@@ -40,13 +40,13 @@ def main():
 
     # Signature
     p256_priv = bytes.fromhex(
-        '4B574A698B07030C84825290CB0EFC88970F5AB9A30838472C28A69DD3AB5BAE')
-    p256_pub = p256.uncompressed_to_raw(bytes.fromhex(
-        '047d1604198c3ff36b91997924f1800c80bef0c7279a55aae6471e40f76f36cf'
-        '9cb781531cca1e5762fd98e3ecd8de36a45ba7c72d28ccebf8ff6ee13c599c95'
-        '21'))
-    assert p256.validate_public_key(p256_pub)
+        '3813E9CC1168AED230DCA65AF0F0BF3EAF2D48A3495777A0D865D4CE1E0094E0')
     assert p256.validate_private_key(p256_priv)
+    p256_pub = p256.uncompressed_to_raw(bytes.fromhex(
+        '047BD9F4AA8801613D81C73B9480347D0A6AB4AF7EB1B04EB634151477EB651E'
+        'D6CBBC6251D01C0CD52E5FDC1B44C9AC544059FAC6398EE1DA4F4382E356A4D9'
+        'C9'))
+    assert p256.validate_public_key(p256_pub)
 
     signature = p256.sign_sha2(cipher, p256_priv, b'a' * 32)
     print(
